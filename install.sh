@@ -3,11 +3,21 @@ set -e
 
 DOTFILES="$(cd "$(dirname "$0")" && pwd)"
 
-# Create symlinks
-ln -sf "$DOTFILES/config/ghostty" ~/.config/ghostty
-ln -sf "$DOTFILES/config/yabai" ~/.config/yabai
-ln -sf "$DOTFILES/config/skhd" ~/.config/skhd
-ln -sf "$DOTFILES/zshrc" ~/.zshrc
-ln -sf "$DOTFILES/ssh_config" ~/.ssh/config
+link() {
+    local src="$1" dst="$2"
+    if [ -L "$dst" ]; then
+        rm "$dst"
+    elif [ -e "$dst" ]; then
+        mv "$dst" "$dst.backup"
+        echo "Backed up $dst to $dst.backup"
+    fi
+    ln -s "$src" "$dst"
+}
 
-echo "dotfiles: installed...\\n"
+link "$DOTFILES/config/ghostty" ~/.config/ghostty
+link "$DOTFILES/config/yabai" ~/.config/yabai
+link "$DOTFILES/config/skhd" ~/.config/skhd
+link "$DOTFILES/zshrc" ~/.zshrc
+link "$DOTFILES/ssh_config" ~/.ssh/config
+
+echo "dotfiles: installed..."
