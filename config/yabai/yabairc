@@ -34,6 +34,7 @@ yabai -m rule --add label="Software Update" title="Software Update" manage=off
 yabai -m rule --add label="Swinsian" app="^Swinsian$" title="^Preferences$" manage=off
 yabai -m rule --add label="System Preferences" app="^System Preferences$" title=".*" manage=off
 yabai -m rule --add app="^Tailscale$" manage=off
+yabai -m rule --add label="Ableton Live Settings" app="^Live$" title="^Settings$" manage=off
 
 set +x
 printf "yabai: configuration loaded...\\n"
