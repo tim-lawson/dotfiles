@@ -1,17 +1,18 @@
 export PATH="$HOME/.local/bin:$PATH"
 
-# fzf shell integration (Ctrl+R for history, Ctrl+T for files, Alt+C for cd)
-source <(fzf --zsh)
+if command -v fzf >/dev/null 2>&1; then
+    source <(fzf --zsh)
+fi
 
-# Aliases - drop-in replacements with nicer defaults
+# Aliases
 alias cat='bat'
 alias ls='eza'
 alias ll='eza -la'
 alias la='eza -a'
 
-# bun completions
-[ -s "/Users/timlawson/.bun/_bun" ] && source "/Users/timlawson/.bun/_bun"
-
-# bun
+# Bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+if [ -s "$BUN_INSTALL/_bun" ]; then
+    source "$BUN_INSTALL/_bun"
+fi

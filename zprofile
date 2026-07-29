@@ -1,0 +1,7 @@
+for brew_prefix in /opt/homebrew /usr/local; do
+    if [ -x "$brew_prefix/bin/brew" ]; then
+        eval "$("$brew_prefix/bin/brew" shellenv)"
+        break
+    fi
+done
+unset brew_prefix

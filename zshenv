@@ -1,0 +1,8 @@
+# Volta
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
+
+# Rust
+if [ -s "$HOME/.cargo/env" ]; then
+    . "$HOME/.cargo/env"
+fi

@@ -1,0 +1,3 @@
+beets-alternatives
+beets-bpmanalyser
+python3-discogs-client
