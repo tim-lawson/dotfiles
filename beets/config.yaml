@@ -1,0 +1,77 @@
+include:
+- secrets.yaml
+
+directory: /Volumes/Media/library-beets # temp
+library: ~/.config/beets/library.db
+
+id3v23: yes
+
+plugins: >
+  alternatives convert discogs duplicates edit fromfilename info playlist replaygain smartplaylist types
+
+import:
+  copy: yes # temp
+  move: no # temp
+  write: yes
+  incremental: yes
+  detail: yes
+  log: ~/.config/beets/import.log
+
+paths:
+  default: $albumartist/$album%aunique{} [$year]/$track - $title
+  singleton: Singles/$artist - $title
+  comp: Compilations/$album%aunique{} [$year]/$track - $title
+
+discogs:
+  index_tracks: no
+  append_style_genre: yes
+
+types:
+  dj: bool
+
+convert:
+  never_convert_lossy_files: yes
+  copy_album_art: yes
+  embed: yes
+  threads: 4
+  format: aiff
+  formats:
+    aiff:
+      command: sox -G $source -b 16 $dest rate -v -L 44100 dither
+      extension: aiff
+    aiff_ff:
+      command: >-
+        ffmpeg -nostdin -v error -i $source -vn -af aresample=resampler=soxr:precision=28:out_sample_rate=44100:out_sample_fmt=s16:dither_method=triangular -c:a pcm_s16be -write_id3v2 1 -id3v2_version 3 -y $dest
+      extension: aiff
+    flac:
+      command: ffmpeg -nostdin -v error -i $source -vn -c:a flac -compression_level 8 -y $dest
+      extension: flac
+
+alternatives:
+  rekordbox:
+    directory: /Volumes/Media/rekordbox-beets # temp
+    paths:
+      default: $albumartist - $album/$track - $title
+      singleton: $artist - $title
+    formats: aiff mp3
+    query: "dj:true"
+    removable: true
+
+smartplaylist:
+  auto: no # temp
+  playlist_dir: ~/Music/playlists # temp
+  relative_to: /Volumes/Media/library-beets # temp
+  output: extm3u
+  playlists:
+  - name: dj-true.m3u8
+    query: "dj:true"
+
+playlist:
+  auto: yes
+  playlist_dir: ~/Music/playlists # temp
+  relative_to: /Volumes/Media/library-beets # temp
+
+replaygain:
+  backend: ffmpeg
+  auto: no # temp
+  album_gain: yes

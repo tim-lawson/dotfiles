@@ -47,11 +47,17 @@ link "$DOTFILES/zshenv" ~/.zshenv
 link "$DOTFILES/zprofile" ~/.zprofile
 link "$DOTFILES/zshrc" ~/.zshrc
 link "$DOTFILES/ssh_config" ~/.ssh/config
+link "$DOTFILES/beets/config.yaml" ~/.config/beets/config.yaml
 chmod 700 ~/.ssh
 
-# aubio predates NumPy 2 and clang 16+ errors on the changed ufunc signature.
-CFLAGS="-Wno-error=incompatible-function-pointer-types" \
-    uv tool install --python 3.12 \
+# config.yaml includes this; keep the token out of the repo. The placeholder has
+# to be non-empty or the discogs plugin falls back to OAuth and prompts for input
+# on every beets command.
+if [ ! -e ~/.config/beets/secrets.yaml ]; then
+    printf 'discogs:\n  user_token: REPLACE_ME\n' > ~/.config/beets/secrets.yaml
+fi
+
+uv tool install --python 3.12 \
     --constraints "$DOTFILES/beets/constraints.txt" \
     --with-requirements "$DOTFILES/beets/plugins.txt" \
     beets

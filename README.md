@@ -7,23 +7,23 @@ git clone git@github.com:<you>/dotfiles.git ~/dotfiles
 ~/dotfiles/install.sh
 ```
 
-Re-runnable. Installs Homebrew and uv if missing, applies the Brewfile, symlinks
-configs, installs beets. Prints the remaining manual steps when it finishes.
+Re-runnable, though `brew bundle` upgrades outdated packages so it isn't purely
+additive. Prints the remaining manual steps at the end.
 
 ## Notes
 
-Shell config is split by when zsh reads it: `zshenv` is environment only,
-`zprofile` sets Homebrew's PATH at login, `zshrc` is interactive-only.
+`zshenv` is environment only, `zprofile` sets Homebrew's PATH at login, `zshrc`
+is interactive-only. Volta, rustup and bun aren't installed — the shell config
+just guards against their absence.
 
-The yabai sudoers rule pins the binary's SHA, so it needs redoing after every
-yabai upgrade. Same for Accessibility — macOS keys it to the binary.
-
-`brew bundle` upgrades outdated packages, so re-running `install.sh` isn't purely
-additive.
+The yabai sudoers rule pins the binary's SHA, so redo it after every upgrade.
+Same for Accessibility. The scripting addition also needs
+`sudo nvram boot-args=-arm64e_preview_abi` and a reboot on Apple Silicon — not
+set here.
 
 ## beets
 
-One uv tool env: beets plus the plugins in `beets/plugins.txt`, pinned in
+One uv tool env: beets plus `beets/plugins.txt`, pinned in
 `beets/constraints.txt`. Re-pin after upgrading:
 
 ```sh
@@ -31,11 +31,9 @@ uv pip freeze --python ~/.local/share/uv/tools/beets/bin/python \
   | sort > beets/constraints.txt
 ```
 
-The CFLAGS in `install.sh`: `aubio` is sdist-only and predates NumPy 2, so it
-compiles locally and clang 16+ rejects its old ufunc signature. The mismatch is
-ABI-safe. Pinning NumPy down instead doesn't work — beets needs `numpy>=2.0.2`.
+Discogs token: `~/.config/beets/secrets.yaml`, untracked, pulled in by
+`config.yaml`'s `include`, seeded by `install.sh`. Keep the placeholder
+non-empty or the plugin falls into OAuth and prompts on every command.
 
-`ffmpeg` is in the Brewfile for `beets-bpmanalyser`, which decodes via pydub.
-
-Volta, rustup and bun aren't installed here — the shell config just guards
-against their absence.
+`ffmpeg` and `sox` are for `convert` (the `aiff` format uses sox) and the
+`replaygain` ffmpeg backend.
