@@ -56,6 +56,7 @@ chmod 700 ~/.ssh
 if [ ! -e ~/.config/beets/secrets.yaml ]; then
     printf 'discogs:\n  user_token: REPLACE_ME\n' > ~/.config/beets/secrets.yaml
 fi
+chmod 600 ~/.config/beets/secrets.yaml
 
 uv tool install --python 3.12 \
     --constraints "$DOTFILES/beets/constraints.txt" \
