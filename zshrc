@@ -16,3 +16,6 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 if [ -s "$BUN_INSTALL/_bun" ]; then
     source "$BUN_INSTALL/_bun"
 fi
+
+# Photo import. ~/.zshrc is a symlink into the repo, and :A resolves it.
+source "${${:-$HOME/.zshrc}:A:h}/photos.zsh"

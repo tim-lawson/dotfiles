@@ -21,6 +21,14 @@ Same for Accessibility. The scripting addition also needs
 `sudo nvram boot-args=-arm64e_preview_abi` and a reboot on Apple Silicon — not
 set here.
 
+## photos
+
+`photos.zsh` defines `ricoh`, which rsyncs the GR IIIx card: JPGs to
+`~/Pictures/JPG` and `/Volumes/Media/MEGA/Photos/JPG`, DNGs to `.../RAW`.
+`ricoh -n` dry-runs it. It's additive, so rejects culled from a destination
+come back on the next import. `RICOH_CARD`, `RICOH_JPG` and `RICOH_ARCHIVE`
+override the paths.
+
 ## beets
 
 One uv tool env: beets plus `beets/plugins.txt`, pinned in
