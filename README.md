@@ -21,6 +21,12 @@ Same for Accessibility. The scripting addition also needs
 `sudo nvram boot-args=-arm64e_preview_abi` and a reboot on Apple Silicon — not
 set here.
 
+`mactex-no-gui` is the full TeX Live (a ~7 GB download, includes biber and
+latexmk). Its pkg installer needs sudo, so `brew bundle` asks for a password.
+The binaries land in `/Library/TeX/texbin`, which `path_helper` adds from
+`/etc/paths.d/TeX` — open a new terminal after installing.
+`sudo tlmgr update --self --all` updates packages between the yearly releases.
+
 ## photos
 
 `photos.zsh` defines `ricoh`, which rsyncs the GR IIIx card: JPGs to
