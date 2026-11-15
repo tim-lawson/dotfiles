@@ -19,3 +19,9 @@ fi
 
 # Photo import. ~/.zshrc is a symlink into the repo, and :A resolves it.
 source "${${:-$HOME/.zshrc}:A:h}/photos.zsh"
+
+# Completions. ~/.zfunc holds generated ones (e.g. _fin from `fin --install-completion`).
+fpath+=~/.zfunc
+autoload -Uz compinit
+compinit
+zstyle ':completion:*' menu select
