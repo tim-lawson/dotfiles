@@ -20,8 +20,8 @@ fi
 # Photo import. ~/.zshrc is a symlink into the repo, and :A resolves it.
 source "${${:-$HOME/.zshrc}:A:h}/photos.zsh"
 
-# Completions. ~/.zfunc holds generated ones (e.g. _fin from `fin --install-completion`).
-fpath+=~/.zfunc
-autoload -Uz compinit
-compinit
+# Completions. ~/.zfunc is untracked: tools generate their scripts into it on
+# each machine (e.g. `fin --install-completion` writes _fin). Keep the next line
+# verbatim -- Typer's installer appends it to ~/.zshrc (this file) if missing.
+fpath+=~/.zfunc; autoload -Uz compinit; compinit
 zstyle ':completion:*' menu select
