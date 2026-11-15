@@ -43,6 +43,7 @@ export PATH="$HOME/.local/bin:$PATH"
 link "$DOTFILES/config/ghostty" ~/.config/ghostty
 link "$DOTFILES/config/yabai" ~/.config/yabai
 link "$DOTFILES/config/skhd" ~/.config/skhd
+link "$DOTFILES/config/tmux" ~/.config/tmux
 link "$DOTFILES/zshenv" ~/.zshenv
 link "$DOTFILES/zprofile" ~/.zprofile
 link "$DOTFILES/zshrc" ~/.zshrc

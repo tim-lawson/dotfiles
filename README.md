@@ -1,6 +1,6 @@
 # dotfiles
 
-macOS: zsh, Ghostty, yabai/skhd, Homebrew packages, beets.
+macOS: zsh, Ghostty, tmux, yabai/skhd, Homebrew packages, beets.
 
 ```sh
 git clone git@github.com:<you>/dotfiles.git ~/dotfiles
