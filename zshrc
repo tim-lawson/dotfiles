@@ -25,3 +25,9 @@ source "${${:-$HOME/.zshrc}:A:h}/photos.zsh"
 # verbatim -- Typer's installer appends it to ~/.zshrc (this file) if missing.
 fpath+=~/.zfunc; autoload -Uz compinit; compinit
 zstyle ':completion:*' menu select
+
+# Open a paper the thesis cites by its citation key, at an anchor from its
+# cached text (papers/<key>.md): p lindsey_sparse_2024 motivating-ex-1; --pdf for Skim.
+p() { python3 -I ~/git/thesis/tools/papers/papers.py open "$@"; }
+_p() { compadd ${${(f)"$(ls ~/git/thesis/papers 2>/dev/null)"}%.md}; }
+compdef _p p
